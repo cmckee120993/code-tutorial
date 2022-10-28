@@ -47,8 +47,9 @@ Bracket Expressions  | Whatever is inside brackets ([]) is a range of characters
 Greedy and Lazy Match | This will work in conjunction with other searches to work with as many matches as possible (greedy) or as few as possible (lazy)
 Boundaries | Work with the begginings and endings of lines, words, and/or patterns
 Back-references | Refer to a previously captured group in the same regex
-Look-ahead and Look-behind |
+Look-ahead and Look-behind | These look for matches either before (ahead) or after (behind) a desired string/character.
 
+Throughout this tutorial, I'm going to try and isolate the regex expressions as much as possible for ease of seeing what is expected when you use only one. Please note that you can combine many of these characteristics to get a more complex regex that will really filter and assist your search in being as precise as possible!
 
 ### split() Components
 
@@ -243,8 +244,24 @@ returns: [""," is Clayhappy today"]
 
 ### Back-references
 FINISH
+
 ### Look-ahead and Look-behind
-FINISH
+Look-ahead and look-behind look for patterns that follow (ahead) or precede (behind) another pattern. The syntax for lookahead is X(?=Y), or, in other words, look for X if followed by Y. Check out this example of how it works in split:
+
+let lookahead = /today(?=!)/;
+let str = 'Clay is happy today!';
+console.log( str.split(lookahead)); 
+returns: ["Clay is happy ","!"]
+
+Because I am splitting the sentence at "today" if it precedes the exclamation point, the array returns without the string "today". To complete a look-behind, you use (?<=Y)X—in other words, lok for matches of X if Y precedes it. Rather than using a string in the first example, I will combine the look-behind with a character class:
+
+let lookahead = /(?<=\s)\S/;
+let str = 'Clay is happy today!';
+console.log( str.split(lookahead)); 
+returns:["Clay ","s ","appy ","oday!"]
+
+The above regex asks the string to be split at every consonant (\S) that is preceded by a space (\s), so the "i", "h", and "t" are all removed from the string; the rest of the characters are then grouped accordingly. 
+
 ## Author
 
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+Clayton McKee is currently completing a bootcamp with UCLA Extension. He is a rising fullstack developer. For some of his projects, please take a look at [his GitHub profile](https://github.com/cmckee120993). You can also email him at [cmckee120993@gmail.com](mailto:cmckee120993@gmail.com).
